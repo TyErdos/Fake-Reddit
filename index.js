@@ -11,7 +11,7 @@ app.set('views', path.join(__dirname, '/views')); //comes built in with node
 
 app.get('/', (req, res) => 
 {
-    res.render('home.ejs');
+    res.render('home.ejs', {name: "Home"});
 })
 
 app.get('/cats', (req, res) =>
@@ -20,7 +20,7 @@ app.get('/cats', (req, res) =>
     [
         'Blue', 'Rocket', 'Monty', 'Stephanie', 'Wintston'
     ]
-    res.render('cats', {cats})
+    res.render('cats', {cats, name: "cats"})
 })
 
 app.get('/r/:subreddit', (req,res) =>
@@ -29,11 +29,11 @@ app.get('/r/:subreddit', (req,res) =>
     const data = redditData[subreddit];
     if(data)
     {
-        res.render('subreddit', { ...data })
+        res.render('subreddit.ejs', { ...data })
     }
     else
     {
-        res.render('notfound', {subreddit})
+        res.render('notfound.ejs', {subreddit, name: "Error: Not Found"})
     }
     
 })
@@ -41,7 +41,7 @@ app.get('/r/:subreddit', (req,res) =>
 app.get('/rand', (req, res) =>
 {
     const randNum = Math.floor(Math.random() * 10) + 1;
-    res.render('random.ejs', {randNum})
+    res.render('random.ejs', {randNum, name: 'random'})
 })
 
 app.listen('3000', () =>
